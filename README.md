@@ -27,3 +27,6 @@ Build a program that will emulate all the TfL Boris Bike docking stations, bikes
 21 Men with Ven
 22 Modules as Mixins
 ```
+
+To Do
+- look into respond_to on rspec
