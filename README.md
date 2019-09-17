@@ -1,9 +1,8 @@
-## Makers Course Week 1 ##
 # Boris Bikes Challenge #
 
 Build a program that will emulate all the TfL Boris Bike docking stations, bikes, and infrastructure (repair staff, and so on).
 
-# Challenges #
+## Challenges ##
 ```
 1 Setting up a Project
 2 Working with User Stories
