@@ -12,7 +12,11 @@ class DockingStation
   end
 
   def dock_bike(bike)
-    @bike = bike
+    if @bike == nil
+      @bike = bike
+    else
+      raise "DockOccupiedError"
+    end
   end
 
 end
