@@ -8,20 +8,20 @@ class DockingStation
   end
 
   def release_bike
-    if @bikes.length < 1
-      raise "NoBikeError"
-    else
-      @bikes.pop
-      Bike.new
-    end
+    fail "NoBikesError" if @bikes.empty?
+    @bikes.pop
+    Bike.new
   end
 
   def dock_bike(bike)
-    if @bikes.size >= 20
-      raise "DockOccupiedError"
-    else
-      @bikes.push(bike)
-    end
+    fail "FullyOccupiedError" if full?
+    @bikes << bike
+  end
+
+  private
+
+  def full?
+    @bikes.size >= 20 ? true : false
   end
 
 end

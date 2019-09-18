@@ -14,7 +14,7 @@ describe DockingStation do
     # it { expect(docked_station.release_bike).to be_a Bike }
     it { expect(docked_station.release_bike).to respond_to(:working?) }
     it "raises an error if no bikes are available" do
-      expect { undocked_station.release_bike }.to raise_error("NoBikeError")
+      expect { undocked_station.release_bike }.to raise_error("NoBikesError")
     end
  end
 
@@ -25,7 +25,7 @@ describe DockingStation do
 
     it "raises an error if 20 bikes are already docked" do
       20.times { docked_station.dock_bike(Bike.new) }
-      expect { docked_station.dock_bike(Bike.new)}.to raise_error("DockOccupiedError")
+      expect { docked_station.dock_bike(Bike.new)}.to raise_error("FullyOccupiedError")
     end
 
     it { expect(docked_station.bikes[0]).to be_a Bike }
