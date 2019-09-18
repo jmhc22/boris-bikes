@@ -6,6 +6,7 @@ describe DockingStation do
   docked_station = DockingStation.new
   docked_station.dock_bike(Bike.new)
 
+
   describe '#release_bike' do
     # responds to release_bike method
     it { expect(docked_station).to respond_to(:release_bike) }
@@ -21,15 +22,19 @@ describe DockingStation do
     # should respond to dock_bike method
     it { expect(docked_station).to respond_to(:dock_bike) }
     # should assign a bike instance to the @bike variable of a DockingStation instance
-    it { expect(docked_station.bike).to be_a Bike }
 
-    it "raises an error if bike is already docked" do
+    it "raises an error if 20 bikes are already docked" do
+      20.times { docked_station.dock_bike(Bike.new) }
       expect { docked_station.dock_bike(Bike.new)}.to raise_error("DockOccupiedError")
     end
+
+    it { expect(docked_station.bikes[0]).to be_a Bike }
+
   end
 
   describe '#bike' do
-    it { expect(docked_station).to respond_to(:bike) }
+
+    it { expect(docked_station).to respond_to(:bikes) }
   end
 
 end

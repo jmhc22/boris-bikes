@@ -1,21 +1,26 @@
 require_relative 'bike'
 
 class DockingStation
-  attr_accessor :bike
+  attr_reader :bikes
+
+  def initialize
+    @bikes = []
+  end
 
   def release_bike
-    if @bike == nil
+    if @bikes.length < 1
       raise "NoBikeError"
     else
+      @bikes.pop
       Bike.new
     end
   end
 
   def dock_bike(bike)
-    if @bike == nil
-      @bike = bike
-    else
+    if @bikes.size >= 20
       raise "DockOccupiedError"
+    else
+      @bikes.push(bike)
     end
   end
 
