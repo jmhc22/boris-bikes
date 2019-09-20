@@ -3,9 +3,9 @@ describe DockingStation do
 
   subject(:docking_station) { described_class.new }
 
-  describe "#initialize" do
+  describe '#initialize' do
     it { expect(DockingStation.new(5).capacity).to eq 5 }
-    it { expect(DockingStation.new.capacity).to eq 20 }
+    it { expect(docking_station.capacity).to eq 20 }
   end
 
   describe '#release_bike' do
@@ -20,6 +20,25 @@ describe DockingStation do
     it "raises an error if no bikes are available" do
       expect { docking_station.release_bike }.to raise_error("NoBikesError")
     end
+
+    it "docking station will not release a broken bikes" do
+      broken_bike = Bike.new
+      broken_bike.report_broken
+      docking_station.dock_bike(broken_bike)
+      expect { docking_station.release_bike }.to raise_error("NoWorkingBikes")
+    end
+
+    it "if at least one docked bike is working, this bike will be released" do
+      broken_bike = Bike.new
+      broken_bike.report_broken
+      working_bike = Bike.new
+      docking_station.dock_bike(broken_bike)
+      docking_station.dock_bike(working_bike)
+      expect(docking_station.release_bike).to eq working_bike
+    end
+
+
+
  end
 
   describe '#dock_bike' do
@@ -27,12 +46,18 @@ describe DockingStation do
     it { expect(docking_station).to respond_to(:dock_bike) }
     # should assign a bike instance to the @bike variable of a DockingStation instance
     it "raises an error if 20 bikes are already docked" do
-      DockingStation::DEFAULT_CAPACITY.times { docking_station.dock_bike(Bike.new) }
+      described_class::DEFAULT_CAPACITY.times { docking_station.dock_bike(Bike.new) }
       expect { docking_station.dock_bike(Bike.new)}.to raise_error("FullyOccupiedError")
     end
     it "dock_bike stores a bike object as an instance variable of docking_station" do
       docking_station.dock_bike(Bike.new)
-      expect(docking_station.bikes[0]).to be_a Bike
+      expect(docking_station.bikes).to include Bike
+    end
+    it "dock_bike docks bikes whether they are broken or not" do
+      broken_bike = Bike.new
+      broken_bike.report_broken
+      docking_station.dock_bike(broken_bike)
+      expect(docking_station.bikes).to include broken_bike
     end
   end
 

@@ -2,10 +2,18 @@ require 'bike'
 
 describe Bike do
 
-  bike = Bike.new
+  subject(:bike) { described_class.new }
 
-  describe '#release_bike' do
-    it { expect(bike).to respond_to(:working?) }
+  describe '#working?' do
+    it { expect(bike).to be_working }
+  end
+
+  describe '#report_broken' do
+    it "when bike is reported as broken, #working? will return false" do
+      bike.report_broken
+      expect(bike).to_not be_working
+    end
+
   end
 
 end
