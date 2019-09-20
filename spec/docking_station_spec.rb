@@ -36,14 +36,6 @@ describe DockingStation do
       expect(docking_station.release_bike).to eq working_bike
     end
 
-    # it 'releases working bikes' do
-    #   bike = double(:bike)
-    #   docking_station.dock_bike(bike)
-    #   allow(bike).to receive(:working?) { true } #.and_return
-    #   bike = docking_station.release_bike
-    #   expect(bike).to be_working
-    # end
-
     it 'releases working bikes' do
       bike = double(:bike, working?: true)
       docking_station.dock_bike(bike)
